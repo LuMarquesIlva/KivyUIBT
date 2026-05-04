@@ -1,0 +1,7 @@
+[project]
+name = "kivy_uibt"
+version = "0.1.0"
+description = "Kivy Universal Interface Builder Template"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["kivy>=2.3.1", "cython>=3.0"]
