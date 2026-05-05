@@ -13,32 +13,52 @@ class Inter_Button(Button):
         self.btn = Button(text=TEXT, on_press=PRESSFUNC, pos=POSITION)
 
     def __call__(self):
+        print(self.btn)
         return self.btn
     
 class Screen(Layout):
 
     WidgetsList = []
 
+    # AddButton Function
+    def addButton(self, TEXT=str, FUNC=type(object) or None, POSITION=(0, 0) or None):
+        self.WidgetsList.append(Inter_Button(TEXT, FUNC, POSITION))
+
+    def renderWidgets(self):
+        for x in self.WidgetsList:
+            print(x)
+            self.add_widget(x.btn)
+
     def __init__(self, **kwargs):
         super(Screen, self).__init__(**kwargs)
 
-        for x in Screen.WidgetsList:
-            self.add_widget(x)
+        print(self.WidgetsList)
 
     def __call__(self):
-        pass
+        self.renderWidgets()
+        return self
 
     class Grid(GridLayout):
+
+        WidgetsList = []
+
         cols = 2
         rows = 2
-        padding = "padding_top"
 
         # AddButton Function
-        def addButton(TEXT=str, FUNC=type(object) or None, POSITION=(0, 0) or None):
-            Screen.WidgetsList.append(Inter_Button(TEXT, FUNC, POSITION).btn)
+        def addButton(self, TEXT=str, FUNC=type(object) or None, POSITION=(0, 0) or None):
+            self.WidgetsList.append(Inter_Button(TEXT, FUNC, POSITION))
+            print(self.WidgetsList)
+        
+        def renderWidgets(self):
+            for x in self.WidgetsList:
+                print(x)
+                self.add_widget(x.btn)
 
         def __init__(self, **kwargs):
             super(Screen.Grid, self).__init__(**kwargs)
+            print(self.WidgetsList)
         
         def __call__(self):
+            self.renderWidgets()
             return self

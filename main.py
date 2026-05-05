@@ -11,13 +11,15 @@ from core.interface import Screen
 def Pri(instance):
     print("TEXTO")
 
-Screen.Grid.addButton("Teste 1", Pri, (50, 50))
+tela = Screen.Grid()
+tela.addButton("Teste 1", Pri, (50, 50))
+tela.addButton("TESTE 2", POSITION=(130, 300))
 
 
 class Interface(App):
 
     def build(self):
-        return Screen()
+        return tela()
 
 
 if __name__ == '__main__':
