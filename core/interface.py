@@ -5,6 +5,21 @@ from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 
+from kivy.graphics import Rotate
+
+from kivy.uix.camera import Camera
+
+
+class Inter_Camera(Camera):
+    
+    obj = None
+    
+    def __init__(self):
+        self.obj = Camera(resolution=(640, 480), play=True)
+        
+    def __call__(self):
+        return self
+
 class Inter_Label(Label):
 
     obj = None
@@ -71,7 +86,13 @@ class Screen(Layout):
         WidgetsList = []
 
         orientation = "vertical" # <vertical> and <horizontal>
-        spacing = 5
+        
+        
+        def addCamera(self):
+            
+            CamObj = Inter_Camera()
+            self.WidgetsList.append(CamObj)
+            return CamObj
 
         def addLabel(self, TEXT=str or None):
             self.WidgetsList.append(Inter_Label(TEXT))
@@ -82,8 +103,8 @@ class Screen(Layout):
             except:
                 raise Exception("This layout does not have a grid; Create with '<BoxLayoutObject>.addGridLayout()' first")
 
-        def addGridLayout(self):
-            gridTempObj = Screen.Grid()
+        def addGridLayout(self, SPACINg=0 or None):
+            gridTempObj = Screen.Grid(SPACING=SPACINg)
             self.WidgetsList.append(gridTempObj)
             self.gridObj = self.WidgetsList.index(gridTempObj)
             
@@ -103,7 +124,7 @@ class Screen(Layout):
                 self.add_widget(x.obj)
 
 
-        def __init__(self, ORIENTATION = str or None, SPACING = int or None, **kwargs):
+        def __init__(self, ORIENTATION = str or None, SPACING = 0 or None, **kwargs):
             super(Screen.Box, self).__init__(**kwargs)
             
             if ORIENTATION is not None:
@@ -146,8 +167,10 @@ class Screen(Layout):
             for x in self.WidgetsList:
                 self.add_widget(x.obj)
 
-        def __init__(self, **kwargs):
+        def __init__(self, SPACING=0 or None, **kwargs):
             super(Screen.Grid, self).__init__(**kwargs)
+            if SPACING is not None:
+                self.spacing = SPACING
             self.obj = self
         
         def __call__(self):

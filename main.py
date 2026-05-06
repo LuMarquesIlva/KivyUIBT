@@ -11,7 +11,7 @@ from core.interface import Screen
 def Pri(instance):
     print("TEXTO")
 
-tela = Screen.Box('horizontal', 100)
+tela = Screen.Box('horizontal')
 tela.addGridLayout()
 TelaGrid = tela.getGrid()
 
@@ -20,18 +20,23 @@ TelaGrid.setCols(3)
 
 for x in range(6):
     if x == 3:
-        TelaGrid.addLabel(f"[color=ff3333]TEST[/color] {x}")
-        print("YEAHHSH")
-        print(TelaGrid.WidgetsList)
+        TelaGrid.addLabel(f"[color=ff3333]Texto[/color] {x}")
         continue
-    TelaGrid.addButton(f"TEST {x}")
+    TelaGrid.addButton(f"Botão {x}")
 
 TelaGrid.renderWidgets()
 
-tela.addButton("Test 1", Pri, (50, 50))
-tela.addLabel("TEXTO")
+tela.addButton("Botão 1", Pri, (50, 50))
+
 tela.changeOrientation('vertical')
-#tela.addButton("TESTE 2", POSITION=(130, 300))
+tela.addLabel("Texto")
+cam = tela.addCamera()
+cam.orientation="vertical"
+
+def playCam(instance):
+    cam.play = True
+
+tela.addButton("Botão 3", FUNC=playCam)
 
 
 class Interface(App):
